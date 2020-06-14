@@ -1,0 +1,28 @@
+.Controls {
+
+  text-align: center;
+  padding: 3rem;
+  width: 20%;
+  margin: 0 auto;
+
+  &-item {
+    margin: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    button,
+    button:focus,
+    button:active,
+    button:visited {
+      border: none;
+      outline: none;
+      font-size: 2rem;
+      background: inherit;
+
+      &:hover {
+        transform: scale(1.5);
+      }
+    }
+  }
+}
