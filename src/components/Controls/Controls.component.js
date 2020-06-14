@@ -6,7 +6,7 @@ const items = ['salad', 'meat', 'cheese'];
 
 const Controls = props => { 
 
-  const { removeIngredient, addIngredient } = props;
+  const { removeIngredient, addIngredient, handleOrder, disableOrderBtn } = props;
 
   return (
     <div className="Controls">
@@ -19,6 +19,8 @@ const Controls = props => {
         <button onClick={() => addIngredient(item)}>+</button>
       </div>)
     })}
+
+    <button disabled={disableOrderBtn} onClick={handleOrder} className="Controls-order">Order now</button>
     </div>
   )
 }
