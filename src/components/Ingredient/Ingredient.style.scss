@@ -1,0 +1,21 @@
+
+.Ingredient {
+  height: 20px;
+  width: 100%;
+  border-radius: 10px; 
+
+  &.cheese {
+    background-color: yellow; 
+  }
+
+  &.salad {
+    background-color: green; 
+  }
+
+  &.meat {
+    background-color:#693d3d; 
+  }
+
+}
+
+
