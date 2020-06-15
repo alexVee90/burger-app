@@ -1,0 +1,17 @@
+.HamburgerMenu {
+  width: 20px;
+  transition: transform 0.3s ease-in;
+  margin-right: 0.5rem;
+
+  & div {
+    height: 4px;
+    width: 100%;
+    border-radius: 10px;
+    background-color: black;
+    margin: 0.1rem;
+  }
+
+  &:hover {
+    transform: skewY(15deg)
+  }
+}

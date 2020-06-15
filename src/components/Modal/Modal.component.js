@@ -5,12 +5,8 @@ import ModalBackground from '../ModalBackground/ModalBackground.component';
 
 
 const Modal = (props) => {
-  const { show, toggleClose, ingredients } = props;
-
-  const handleContinue = () => { 
-    toggleClose();
-    alert('order Placed')
-  }
+  
+  const { show, toggleClose, ingredients, continueOrder } = props;
 
   return (
     <>
@@ -20,7 +16,7 @@ const Modal = (props) => {
           {ingredients.map(ing => <li>{ing}</li>)}
         </ul>
         <div className="action-area">
-          <button onClick={handleContinue}>Continue</button>
+          <button onClick={continueOrder}>Continue</button>
           <button onClick={toggleClose}>CANCEL</button>
         </div>
       </div>

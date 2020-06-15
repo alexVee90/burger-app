@@ -1,0 +1,14 @@
+.SideDrawer {
+  background-color: #e9967a;
+  height: 100vh;
+  width: 20vw;
+  position: absolute;
+  top: 0;
+  left: -500px;
+  transition: all 0.5s ease-in;
+  z-index: 2;
+
+  &.opened {
+    left: 0;
+  }
+}

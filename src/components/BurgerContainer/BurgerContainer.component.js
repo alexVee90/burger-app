@@ -30,6 +30,11 @@ const BurgerContainer = props => {
     setOrdering(!ordering);
   }
 
+  const continueOrder = () => {
+    handleOrder();
+    alert('order Placed')
+  }
+
 
   return (
     <>
@@ -37,6 +42,7 @@ const BurgerContainer = props => {
         show={ordering} 
         toggleClose={handleOrder} 
         ingredients={ingredients} 
+        continueOrder={continueOrder}
       />
       <Burger ingredients={ingredients} />
       <Controls 
