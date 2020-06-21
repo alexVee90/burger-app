@@ -2,6 +2,8 @@ import React from 'react';
 
 import './NavList.style.scss';
 
+import { NavLink } from 'react-router-dom';
+
 const NavList = props => {
 
   const { direction } = props;
@@ -9,8 +11,12 @@ const NavList = props => {
   return (
     <nav className="NavList" >
       <ul className={direction} > 
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Contact</a></li>
+        <li>
+          <NavLink exact to="/">Home</NavLink>
+        </li>
+        <li>
+          <NavLink to="/orders">Orders</NavLink>
+        </li>
       </ul>
     </nav>
   )

@@ -4,7 +4,6 @@ import Modal from '../components/Modal/Modal.component';
 import { useState, useEffect } from 'react';
 
 const withError = (WrappedComponent, axios) => {
-  console.log('wrapped in withError');
 
   return props => {
 

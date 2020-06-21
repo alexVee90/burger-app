@@ -2,10 +2,10 @@ import React from 'react';
 
 import './BurgerContainer.style.scss';
 
-import Burger from '../Burger/Burger.component';
-import Controls from '../Controls/Controls.component';
-import Modal from '../Modal/Modal.component';
-import OrderSummary from '../OrderSummary/OrderSummary.component';
+import Burger from '../../components/Burger/Burger.component';
+import Controls from '../../components/Controls/Controls.component';
+import Modal from '../../components/Modal/Modal.component';
+import OrderSummary from '../../components/OrderSummary/OrderSummary.component';
 
 import withError from '../../HOC/withError'
 
@@ -42,11 +42,8 @@ const BurgerContainer = props => {
       ingredients: [...ingredients]
     }
 
-    axiosFirebase.post('/orders', order)
-      .then(res => 
-        { 
-          setIngredients([]);
-        })
+    axiosFirebase.post('/orders.json', order)
+      .then(res => setIngredients([]));
   }
 
   return (

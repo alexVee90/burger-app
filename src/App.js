@@ -1,16 +1,21 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import Layout from './pages/Layout/Layout.component';
-import BurgerContainer from './components/BurgerContainer/BurgerContainer.component';
-;
+import BurgerContainer from './pages/BurgerContainer/BurgerContainer.component';
+import Orders from './pages/Orders/Orders.component';
+
+import { Switch, Route } from 'react-router-dom';
 
 function App() {
-
   return (
     <div>
-     <Layout>
-       <BurgerContainer />
-     </Layout>
+      <Layout>
+        <Switch>
+          <Route exact path='/' component={BurgerContainer} />
+          <Route path='/orders' component={Orders} />
+          <Route render={() => <h1>Not Found</h1>} />
+        </Switch>
+      </Layout>
     </div>
   );
 }
