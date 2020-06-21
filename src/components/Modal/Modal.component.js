@@ -7,7 +7,7 @@ import ModalBackground from '../ModalBackground/ModalBackground.component';
 
 const Modal = (props) => {
   
-  const { show, toggleClose, ingredients, continueOrder } = props;
+  const { show, toggleClose } = props;
 
 
 

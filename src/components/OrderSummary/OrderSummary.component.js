@@ -6,8 +6,8 @@ const OrderSummary = (props) => {
     <>
       <h3>Order details:</h3>
       <ul>
-        {ingredients.map((ing) => (
-          <li>{ing}</li>
+        {ingredients.map((ing, i) => (
+          <li key={i}>{ing}</li>
         ))}
       </ul>
       <div className='action-area'>

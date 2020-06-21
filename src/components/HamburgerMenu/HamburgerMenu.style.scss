@@ -12,6 +12,9 @@
   }
 
   &:hover {
-    transform: skewY(15deg)
+    opacity: 0.5;
+  }
+  &:active {
+    transform: skewY(25deg)
   }
 }

@@ -1,15 +1,16 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import './BurgerContainer.style.scss';
 
 import Burger from '../Burger/Burger.component';
 import Controls from '../Controls/Controls.component';
 import Modal from '../Modal/Modal.component';
+import OrderSummary from '../OrderSummary/OrderSummary.component';
+
+import withError from '../../HOC/withError'
 
 import axiosFirebase from '../../util/axios.firebase';
 
-import componentDidUpdateEffect from '../../util/componentDidUpdateEffect';
-import OrderSummary from '../OrderSummary/OrderSummary.component';
 
 const BurgerContainer = props => { 
   
@@ -37,21 +38,20 @@ const BurgerContainer = props => {
 
   const continueOrder = () => {
     handleOrder();
-    const order = {key: 1, name: 'alex'}
-    axiosFirebase.post('/orders.json', order).then(res => { console.log(res.data)})
+    const order = {
+      ingredients: [...ingredients]
+    }
+
+    axiosFirebase.post('/orders', order)
+      .then(res => 
+        { 
+          setIngredients([]);
+        })
   }
-
-  componentDidUpdateEffect(() => {
-    console.log('componentDidUpdateEffect ran');
-  })
-
-  useEffect(() => {
-    console.log('useEffect ran')
-  })
 
   return (
     <>
-      <Modal show={ordering} >
+      <Modal show={ordering} toggleClose={handleOrder}  >
         <OrderSummary         
           ingredients={ingredients} 
           toggleClose={handleOrder} 
@@ -69,4 +69,4 @@ const BurgerContainer = props => {
   )
 }
 
-export default BurgerContainer;
+export default withError(BurgerContainer, axiosFirebase);
