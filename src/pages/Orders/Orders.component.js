@@ -29,9 +29,7 @@ const Orders = () => {
     <div className='Orders'>
       {loadingData && <Spinner />}
       <h2>Orders</h2>
-      {orders.map(order => {
-        return <Order key={order.id} order={order} /> 
-      })}
+      {orders.map(order => <Order key={order.id} order={order} /> )}
     </div>
   )
 }
