@@ -1,19 +1,9 @@
-import * as types from '../actions/actions.types';
+import { combineReducers } from 'redux';
 
-const initialState = {
+import ingredientsReducer from './ingredients.reducer';
+import ordersReducer from './orders.reducer';
 
-}
-
-export default (state = initialState, { type, payload } ) => {
-  switch (type) {
-    case types.BLA: 
-    console.log('hit');
-      return {
-        ...state
-      };
-    default:
-      return {
-        ...state
-      }
-  }
-}
+export default combineReducers({
+  ingredientsReducer: ingredientsReducer,
+  ordersReducer: ordersReducer
+});

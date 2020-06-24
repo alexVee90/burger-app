@@ -2,36 +2,38 @@ import React from 'react';
 
 import './Orders.style.scss';
 
+import { connect } from 'react-redux';
+
 import Order from '../../components/Order/Order.component';
 import Spinner from '../../components/Spinner/Spinner.component';
+import withErrorHandler from '../../HOC/withErrorHandler';
 
-import axiosFirebase from '../../util/axios.firebase';
+import * as creators from '../../store/actions/actions.creators';
 
-const Orders = () => {
-
-  const [orders, setOrders] = React.useState([]);
-  const [ loadingData, toggleLoadingData ] = React.useState(false);
+const Orders = (props) => {
 
   React.useEffect( () => {
-    toggleLoadingData(true);
-
-    axiosFirebase.get('/orders.json').then(res => {
-
-     const mappedData = Object.keys(res.data).map(id => ({ id: id, ingredients: res.data[id].ingredients  }) );
-
-     toggleLoadingData(false);
-     setOrders(mappedData);
-
-    })
+    props.getOrders();
   }, []);
 
   return (
     <div className='Orders'>
-      {loadingData && <Spinner />}
       <h2>Orders</h2>
-      {orders.map(order => <Order key={order.id} order={order} /> )}
+      {props.loading && <Spinner />}
+      {props.orders.map(order => <Order key={order.id} order={order} /> )}
     </div>
   )
 }
 
-export default Orders;
+const mapStateToProps = state => ({
+  orders: state.ordersReducer.orders,
+  loading: state.ordersReducer.loading,
+  error: state.ordersReducer.error
+});
+
+const mapDispatchToProps = dispatch => ({
+  clearError: () => dispatch(creators.clearError()),
+  getOrders: () => dispatch(creators.tryGetOrders()),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(Orders));

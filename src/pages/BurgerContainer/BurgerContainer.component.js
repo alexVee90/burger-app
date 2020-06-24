@@ -7,63 +7,55 @@ import Controls from '../../components/Controls/Controls.component';
 import Modal from '../../components/Modal/Modal.component';
 import OrderSummary from '../../components/OrderSummary/OrderSummary.component';
 
-import withError from '../../HOC/withError'
+import { connect } from 'react-redux';
 
-import axiosFirebase from '../../util/axios.firebase';
+import withErrorHandler from '../../HOC/withErrorHandler'
+import * as creators from '../../store/actions/actions.creators';
 
 
 const BurgerContainer = props => { 
   
-  const [ingredients, setIngredients] = React.useState([]);
   const [ordering, setOrdering] = React.useState(false);
 
-  const removeIngredient = ingredient => {
-    let newArr = [ ...ingredients ];
-    
-    const ingIndex = ingredients.findIndex(ing => ing === ingredient);
-    
-    ingIndex >= 0 && newArr.splice(ingIndex, 1)
-
-    setIngredients(newArr);
-  }
-
-  const addIngredient = ingredient => {
-    const newArr = [ ...ingredients, ingredient ];
-    setIngredients(newArr);
-  }
-
-  const handleOrder = () => {
-    setOrdering(!ordering);
-  }
+  const handleOrder = () => setOrdering(!ordering);
 
   const continueOrder = () => {
     handleOrder();
-    const order = {
-      ingredients: [...ingredients]
-    }
-
-    axiosFirebase.post('/orders.json', order)
-      .then(res => setIngredients([]));
+    const order = { ingredients: [...props.ingredients] }
+    props.postOrder(order);
   }
 
   return (
     <>
       <Modal show={ordering} toggleClose={handleOrder}  >
         <OrderSummary         
-          ingredients={ingredients} 
+          ingredients={props.ingredients} 
           toggleClose={handleOrder} 
           continueOrder={continueOrder}
         />
       </Modal>
-      <Burger ingredients={ingredients} />
+      <Burger ingredients={props.ingredients} />
       <Controls 
-        removeIngredient={removeIngredient} 
-        addIngredient={addIngredient} 
+        removeIngredient={props.removeIngredient} 
+        addIngredient={props.addIngredient} 
         handleOrder={handleOrder}
-        disableOrderBtn={ingredients.length ? false : true}
+        disableOrderBtn={props.ingredients.length ? false : true}
       />
     </>
   )
 }
 
-export default withError(BurgerContainer, axiosFirebase);
+const mapStateToProps = state => ({
+  ingredients: state.ingredientsReducer.ingredients,
+  error: state.ingredientsReducer.error
+});
+
+const mapDispatchToProps = dispatch => ({
+  addIngredient: (ingredient) => dispatch(creators.addIngredient(ingredient)),
+  removeIngredient: (ingredient) => dispatch(creators.removeIngredient(ingredient)),
+  clearIngredients: () => dispatch(creators.clearIngredients()),
+  postOrder: (order) => dispatch(creators.trySavingOrder(order)),
+  clearError: () => dispatch(creators.clearError())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BurgerContainer));
