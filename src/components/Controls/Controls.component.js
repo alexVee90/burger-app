@@ -4,9 +4,7 @@ import './Controls.style.scss';
 
 const items = ['salad', 'meat', 'cheese'];
 
-const Controls = props => { 
-
-  const { removeIngredient, addIngredient, handleOrder, disableOrderBtn } = props;
+const Controls = ({ removeIngredient, addIngredient, handleOrder, disableOrderBtn }) => { 
 
   return (
     <div className="Controls">

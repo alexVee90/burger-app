@@ -12,10 +12,20 @@ import { connect } from 'react-redux';
 import withErrorHandler from '../../HOC/withErrorHandler'
 import * as creators from '../../store/actions/actions.creators';
 
+import firebase from '../../util/firebase.config';
 
 const BurgerContainer = props => { 
-  
+
   const [ordering, setOrdering] = React.useState(false);
+  const [user, setUser] = React.useState(null);
+
+  React.useEffect( () => {
+    const data = firebase.auth().currentUser; 
+    setUser(data);
+    console.log(data);
+  }, [user])
+  
+
 
   const handleOrder = () => setOrdering(!ordering);
 
@@ -39,7 +49,7 @@ const BurgerContainer = props => {
         removeIngredient={props.removeIngredient} 
         addIngredient={props.addIngredient} 
         handleOrder={handleOrder}
-        disableOrderBtn={props.ingredients.length ? false : true}
+        disableOrderBtn={props.ingredients.length && user ? false : true}
       />
     </>
   )

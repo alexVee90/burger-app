@@ -13,7 +13,7 @@ const SideDrawer = props => {
     <div>
       <div className={`SideDrawer ${opened && 'opened'}`}>
         <h2>Burger App</h2>
-        <NavList direction="column" />      
+        <NavList toggleClose={toggleOpened} direction="column" />      
       </div>
       <ModalBackground show={opened} toggleClose={toggleOpened} />  
     </div>
