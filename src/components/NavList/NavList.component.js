@@ -21,7 +21,7 @@ const NavList = props => {
           <NavLink onClick={toggleClose} to="/auth">Authenticate</NavLink>
         </li>
         <li>
-          <NavLink onClick={logout} to="/">Logout</NavLink>
+          <NavLink onClick={logout} to="/logout">Logout</NavLink>
         </li>
       </ul>
     </nav>

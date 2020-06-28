@@ -2,9 +2,9 @@ import React from 'react';
 
 import './Toolbar.style.scss';
 
-import HamburgerMenu from '../HamburgerMenu/HamburgerMenu.component';
-import NavList from '../NavList/NavList.component';
-import SideDrawer from '../SideDrawer/SideDrawer.component';
+import HamburgerMenu from '../../components/HamburgerMenu/HamburgerMenu.component';
+import NavList from '../../components/NavList/NavList.component';
+import SideDrawer from '../../components/SideDrawer/SideDrawer.component';
 
 import firebase from '../../util/firebase.config';
 
