@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import './Toolbar.style.scss';
 
@@ -6,29 +7,32 @@ import HamburgerMenu from '../../components/HamburgerMenu/HamburgerMenu.componen
 import NavList from '../../components/NavList/NavList.component';
 import SideDrawer from '../../components/SideDrawer/SideDrawer.component';
 
-import firebase from '../../util/firebase.config';
+import * as creators from '../../store/actions/actions.creators';
 
-const Toolbar = () => {
+const Toolbar = (props) => {
 
   const [opened, setOpened] = React.useState(false);
 
-  const toggleOpened = () => {
-    setOpened(!opened);
-  }
-
-  const logout = () => {
-    firebase.auth().signOut();
-  }
+  const toggleOpened = () => setOpened(!opened);
 
   return(
     <>
       <header className='Toolbar'>
         <HamburgerMenu handleClick={toggleOpened} />
-        <NavList logout={logout} />
+        <NavList user={props.user} />
       </header>
-      <SideDrawer opened={opened} toggleOpened={toggleOpened} />
+      <SideDrawer user={props.user} opened={opened} toggleOpened={toggleOpened} />
     </>
   )
 }
 
-export default Toolbar;
+const mapStateToProps = state => ({
+  user: state.authReducer.user
+})
+
+const mapDispatchToProps = dispatch => ({
+  getUser: () => dispatch(creators.getUser()),
+
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Toolbar);

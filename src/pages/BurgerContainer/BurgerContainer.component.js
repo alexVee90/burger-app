@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import './BurgerContainer.style.scss';
 
@@ -7,26 +8,17 @@ import Controls from '../../components/Controls/Controls.component';
 import Modal from '../../components/Modal/Modal.component';
 import OrderSummary from '../../components/OrderSummary/OrderSummary.component';
 
-import { connect } from 'react-redux';
-
 import withErrorHandler from '../../HOC/withErrorHandler'
 import * as creators from '../../store/actions/actions.creators';
-
-import firebase from '../../util/firebase.config';
 
 const BurgerContainer = props => { 
 
   const [ordering, setOrdering] = React.useState(false);
-  const [user, setUser] = React.useState(null);
 
   React.useEffect( () => {
-    const data = firebase.auth().currentUser; 
-    setUser(data);
-    console.log(data);
-  }, [user])
+    props.getUser();
+  }, [])
   
-
-
   const handleOrder = () => setOrdering(!ordering);
 
   const continueOrder = () => {
@@ -49,7 +41,7 @@ const BurgerContainer = props => {
         removeIngredient={props.removeIngredient} 
         addIngredient={props.addIngredient} 
         handleOrder={handleOrder}
-        disableOrderBtn={props.ingredients.length && user ? false : true}
+        disableOrderBtn={props.ingredients.length && props.user ? false : true}
       />
     </>
   )
@@ -57,7 +49,8 @@ const BurgerContainer = props => {
 
 const mapStateToProps = state => ({
   ingredients: state.ingredientsReducer.ingredients,
-  error: state.ingredientsReducer.error
+  error: state.ingredientsReducer.error,
+  user: state.authReducer.user,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -65,7 +58,8 @@ const mapDispatchToProps = dispatch => ({
   removeIngredient: (ingredient) => dispatch(creators.removeIngredient(ingredient)),
   clearIngredients: () => dispatch(creators.clearIngredients()),
   postOrder: (order) => dispatch(creators.trySavingOrder(order)),
-  clearError: () => dispatch(creators.clearError())
+  clearError: () => dispatch(creators.clearError()),
+  getUser: () => dispatch(creators.getUser()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BurgerContainer));

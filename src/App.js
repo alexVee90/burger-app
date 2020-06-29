@@ -3,7 +3,6 @@ import React from 'react';
 import BurgerContainer from './pages/BurgerContainer/BurgerContainer.component';
 import Orders from './pages/Orders/Orders.component';
 import Authentication from './pages/Authentication/Authenthication.component';
-
 import Toolbar from './pages/Toolbar/Toolbar.component';
 
 import { Switch, Route } from 'react-router-dom';

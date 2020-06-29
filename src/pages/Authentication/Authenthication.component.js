@@ -1,24 +1,29 @@
 import React from 'react';
-
+import { connect } from 'react-redux';
 import './Authentication.style.scss';
 
 import AuthForm from '../../components/AuthForm/AuthForm.component';
 
 import firebase from '../../util/firebase.config';
+import * as creators from '../../store/actions/actions.creators';
 
 const Authentication = props => {
 
-  const mode = props.location.search.slice(1); // login || register
+  const mode = props.location.search.slice(1); // login || register || logout
 
   React.useEffect(() => {
-    if(mode !== 'login' && mode !== 'register') props.history.push('/auth?register');
+    if(mode === 'logout') {
+      props.logout();
+      props.history.push('/');
+    } else if (mode !== 'login' && mode !== 'register') {
+      props.history.push('/auth?login');
+    }
   }, [mode]);
 
 
   const handleSubmit = async (email, password) => { 
     try {
       if(mode === 'login') { 
-        console.log('loging');
         const res = await firebase.auth().signInWithEmailAndPassword(email, password)
         props.history.push('/');
       } 
@@ -40,4 +45,8 @@ const Authentication = props => {
   )
 };
 
-export default Authentication;
+const mapDispatchToProps = dispatch => ({
+  logout: () => dispatch(creators.logout())
+})
+
+export default connect(null, mapDispatchToProps)(Authentication);

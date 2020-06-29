@@ -1,5 +1,6 @@
 import * as types from './actions.types';
-import axiosFirebase from '../../util/axios.firebase'
+import axiosFirebase from '../../util/axios.firebase';
+import firebase from '../../util/firebase.config';
 
 export const setLoading = () => ({ type: types.SET_LOADING })
 
@@ -64,5 +65,20 @@ export const trySavingOrder = order => {
         dispatch(saveIngredientsFailure(error))
         setTimeout( () => dispatch(clearError()), 5000);
       })
+  }
+}
+
+export const getUser = () => {
+  const data = firebase.auth().currentUser;
+  return {
+    type: types.GET_USER,
+    payload: data
+  }
+}
+
+export const logout = () => {
+  firebase.auth().signOut();
+  return {
+    type: types.LOGOUT
   }
 }

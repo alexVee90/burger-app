@@ -7,13 +7,13 @@ import ModalBackground from '../ModalBackground/ModalBackground.component'
 
 const SideDrawer = props => {
 
-  const { opened, toggleOpened } = props;
+  const { opened, toggleOpened, user } = props;
 
   return (
     <div>
       <div className={`SideDrawer ${opened && 'opened'}`}>
         <h2>Burger App</h2>
-        <NavList toggleClose={toggleOpened} direction="column" />      
+        <NavList user={user} toggleClose={toggleOpened} direction="column" />      
       </div>
       <ModalBackground show={opened} toggleClose={toggleOpened} />  
     </div>
