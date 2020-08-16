@@ -19,7 +19,7 @@ const Authentication = props => {
       props.history.push('/auth?login');
     }
   }, [mode]);
-
+ 
 
   const handleSubmit = async (email, password) => { 
     try {
